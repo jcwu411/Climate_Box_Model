@@ -116,7 +116,7 @@ if __name__ == "__main__":
     debug = False  # debug
     freshwater = True  # Freshwater experiment
     plot = True  # plot or not
-    save = False  # save file or not
+    save = True  # save file or not
 
     # Initialization
     plot_dt = 0.01

@@ -8,6 +8,8 @@ import numpy as np
 import constant_par as con
 import matplotlib.pyplot as plt
 
+ylabelsize = 8
+
 
 def plot_2d_phi(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf", sa=True):
     tso, tno, sso, sno = data[:, 0], data[:, 2], data[:, 4],  data[:, 6]
@@ -16,18 +18,16 @@ def plot_2d_phi(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf", sa=True):
     plt.figure()
     color = 'blue'  # The color of the line
     plt.plot(t, phi, color=color, linewidth=lw)
-    plt.ylabel('Phi')
+    plt.ylabel(r'$\Phi\ (Sv)$')
     plt.xlabel('t (a)')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     # Mark the final value
     axr = plt.twinx()
     axr.plot(t, phi, color=color, linewidth=lw * 0.1)
     axr.set_yticks([phi[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % phi[len(t) - 1])], color=color)
-
-    plt.title(ti)
 
     if sa:
         plt.savefig(fn)
@@ -49,9 +49,9 @@ def plot_2d_oce_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.p
     plt.subplot(411)
     color = 'red'
     plt.plot(t, tso, color=color, linewidth=lw)
-    plt.ylabel('Southern')
+    plt.ylabel(r'$T_S^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -59,13 +59,14 @@ def plot_2d_oce_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.p
     axr.plot(t, tso, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tso[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tso[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(412)
     color = 'blue'  # The color of this plot
     plt.plot(t, tmo, color=color, linewidth=lw)
-    plt.ylabel('Mixing Layer')
+    plt.ylabel(r'$T_M^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -73,13 +74,14 @@ def plot_2d_oce_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.p
     axr.plot(t, tmo, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tmo[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tmo[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(413)
     color = 'green'
     plt.plot(t, tno, color=color, linewidth=lw)
-    plt.ylabel('Northern')
+    plt.ylabel(r'$T_N^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -87,22 +89,24 @@ def plot_2d_oce_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.p
     axr.plot(t, tno, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tno[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tno[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(414)
     color = 'black'
     plt.plot(t, tdo, color=color, linewidth=lw)
-    plt.ylabel('Deep Layer')
+    plt.ylabel(r'$T_D^o$')
     plt.xlabel('t (a)')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     # Mark the final value
     axr = plt.twinx()
     axr.plot(t, tdo, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tdo[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tdo[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
-    plt.suptitle(ti)
+    plt.suptitle(ti + r'$({}^{\circ}C)$')
 
     if sa:
         plt.savefig(fn)
@@ -120,9 +124,9 @@ def plot_2d_oce_salinity_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf"
     plt.subplot(411)
     color = 'red'
     plt.plot(t, sso, color=color, linewidth=lw)
-    plt.ylabel('Southern')
+    plt.ylabel(r'$S_S^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -130,13 +134,14 @@ def plot_2d_oce_salinity_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf"
     axr.plot(t, sso, color=color, linewidth=lw * 0.1)
     axr.set_yticks([sso[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % sso[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(412)
     color = 'blue'
     plt.plot(t, smo, color=color, linewidth=lw)
-    plt.ylabel('Mixing Layer')
+    plt.ylabel(r'$S_M^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -144,13 +149,14 @@ def plot_2d_oce_salinity_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf"
     axr.plot(t, smo, color=color, linewidth=lw * 0.1)
     axr.set_yticks([smo[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % smo[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(413)
     color = 'green'
     plt.plot(t, sno, color=color, linewidth=lw)
-    plt.ylabel('Northern')
+    plt.ylabel(r'$S_N^o$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -158,22 +164,24 @@ def plot_2d_oce_salinity_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d.pdf"
     axr.plot(t, sno, color=color, linewidth=lw * 0.1)
     axr.set_yticks([sno[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % sno[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(414)
     color = 'black'
     plt.plot(t, sdo, color=color, linewidth=lw)
-    plt.ylabel('Deep Layer')
+    plt.ylabel(r'$S_D^o$')
     plt.xlabel('t (a)')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     # Mark the final value
     axr = plt.twinx()
     axr.plot(t, sdo, color=color, linewidth=lw * 0.1)
     axr.set_yticks([sdo[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % sdo[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
-    plt.suptitle(ti)
+    plt.suptitle(ti + "(PSU)")
 
     if sa:
         plt.savefig(fn)
@@ -193,9 +201,9 @@ def plot_2d_atmos_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d
     plt.subplot(411)
     color = 'red'
     plt.plot(t, tsa, color=color, linewidth=lw)
-    plt.ylabel('Southern')
+    plt.ylabel(r'$T_S^a$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -203,13 +211,14 @@ def plot_2d_atmos_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d
     axr.plot(t, tsa, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tsa[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tsa[len(t)-1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(412)
     color = 'blue'
     plt.plot(t, tma, color=color, linewidth=lw)
-    plt.ylabel('Tropic')
+    plt.ylabel(r'$T_M^a$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -217,13 +226,14 @@ def plot_2d_atmos_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d
     axr.plot(t, tma, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tma[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tma[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(413)
     color = 'green'
     plt.plot(t, tna, color=color, linewidth=lw)
-    plt.ylabel('Northern')
+    plt.ylabel(r'$T_N^a$')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     ax.set_xticklabels([])
     # Mark the final value
@@ -231,22 +241,24 @@ def plot_2d_atmos_temperature_sub(data, dt, steps, lw=1.0, ti="Plot", fn="test2d
     axr.plot(t, tna, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tna[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tna[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
     plt.subplot(414)
     color = 'black'
     plt.plot(t, tmean, color=color, linewidth=lw)
-    plt.ylabel('Global')
+    plt.ylabel(r'$T_{mean}$')
     plt.xlabel('t (a)')
     ax = plt.gca()
-    ax.tick_params(axis='y', labelsize=10)
+    ax.tick_params(axis='y', labelsize=ylabelsize)
     ax.set_xlim(0, steps * dt)
     # Mark the final value
     axr = plt.twinx()
     axr.plot(t, tmean, color=color, linewidth=lw * 0.1)
     axr.set_yticks([tmean[len(t) - 1]])
     axr.set_yticklabels([str('%.2f' % tmean[len(t) - 1])], color=color)
+    axr.tick_params(axis='y', labelsize=ylabelsize)
 
-    plt.suptitle(ti)
+    plt.suptitle(ti + r'$({}^{\circ}C)$')
 
     if sa:
         plt.savefig(fn)
