@@ -5,9 +5,9 @@ Created on 29/10/2020
 """
 
 import numpy as np
-import ode_solver                   # solve ode
-import constant_par as con          # input constant
-import plot_data                    # input plot function
+import ode_solver  # solve ode
+import constant_par as con  # input constant
+import plot_data  # input plot function
 
 """
     tso: The temperature of Southern Atlantic
@@ -113,10 +113,10 @@ def boxmodel(x_0):
 
 
 if __name__ == "__main__":
-    debug = False                   # debug
-    freshwater = True               # Freshwater experiment
-    plot = True                     # plot or not
-    save = False                    # save file or not
+    debug = False  # debug
+    freshwater = True  # Freshwater experiment
+    plot = True  # plot or not
+    save = False  # save file or not
 
     # Initialization
     plot_dt = 0.01
@@ -140,7 +140,7 @@ if __name__ == "__main__":
         result_f.integrate(scheme)
         # record the final state, and inject freshwater
         xf0 = result_f.trajectory[len(result_f.trajectory) - 1, :]
-        xf0[6] = xf0[6] - 0.7   # change the sno by reducing 0.7
+        xf0[6] = xf0[6] - 0.7  # change the sno by reducing 0.7
         # rerun for balance
         result_b = ode_solver.Ode(iv=xf0, function=boxmodel, dt=dt, steps=steps, debug=1)
         result_b.integrate(scheme)
@@ -151,26 +151,26 @@ if __name__ == "__main__":
         result.integrate(scheme)
         data = result.trajectory
 
-# ---------------------------------------
-# Plotting
-# _______________________________________
+    # ---------------------------------------
+    # Plotting
+    # ---------------------------------------
 
     if plot:
         if freshwater:
-            plot_data.plot_2d_atmosphere_temperature(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
-                                                     lw=1.0, ti="Temperature", fn="AT_fresh.pdf", sa=save)
-            plot_data.plot_2d_ocean_temperature(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
-                                                lw=1.0, ti="Temperature", fn="OT_fresh.pdf", sa=save)
-            plot_data.plot_2d_ocean_salinity(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
-                                             lw=1.0, ti="Salinity", fn="OS_fresh.pdf", sa=save)
+            plot_data.plot_2d_atmos_temperature_sub(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
+                                                    lw=1.0, ti="Atmospheric Temperature", fn="AT_fresh.pdf", sa=save)
+            plot_data.plot_2d_oce_temperature_sub(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
+                                                  lw=1.0, ti="Oceanic Temperature", fn="OT_fresh.pdf", sa=save)
+            plot_data.plot_2d_oce_salinity_sub(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
+                                               lw=1.0, ti="Oceanic Salinity", fn="OS_fresh.pdf", sa=save)
             plot_data.plot_2d_phi(data, dt=plot_dt, steps=steps_fresh + 1 + steps + 1,
-                                  lw=1.0, ti="Salinity", fn="Phi_fresh.pdf", sa=save)
+                                  lw=1.0, ti="Phi", fn="Phi_fresh.pdf", sa=save)
         else:
-            plot_data.plot_2d_atmosphere_temperature(data, dt=plot_dt, steps=steps + 1,
-                                                     lw=1.0, ti="Temperature", fn="AT.pdf", sa=save)
-            plot_data.plot_2d_ocean_temperature(data, dt=plot_dt, steps=steps + 1,
-                                                lw=1.0, ti="Temperature", fn="OT.pdf", sa=save)
-            plot_data.plot_2d_ocean_salinity(data, dt=plot_dt, steps=steps + 1,
-                                             lw=1.0, ti="Salinity", fn="OS.pdf", sa=save)
+            plot_data.plot_2d_atmos_temperature_sub(data, dt=plot_dt, steps=steps + 1,
+                                                    lw=1.0, ti="Atmospheric Temperature", fn="AT.pdf", sa=save)
+            plot_data.plot_2d_oce_temperature_sub(data, dt=plot_dt, steps=steps + 1,
+                                                  lw=1.0, ti="Oceanic Temperature", fn="OT.pdf", sa=save)
+            plot_data.plot_2d_oce_salinity_sub(data, dt=plot_dt, steps=steps + 1,
+                                               lw=1.0, ti="Oceanic Salinity", fn="OS.pdf", sa=save)
             plot_data.plot_2d_phi(data, dt=plot_dt, steps=steps + 1,
-                                  lw=1.0, ti="Salinity", fn="Phi.pdf", sa=save)
+                                  lw=1.0, ti="Phi", fn="Phi.pdf", sa=save)
